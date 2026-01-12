@@ -4,12 +4,12 @@ This repository contains a simple implementation of an LRU (Least Recently Used)
 
 ## Overview
 
-The cache is implemented in `com.smartload.lru.LRUCache` and is optimized for O(1) operations for both reads and writes by combining:
+The cache is implemented in `com.smartload.lru.LRUCache` (now generic: `LRUCache<K,V>`) and is optimized for O(1) operations for both reads and writes by combining:
 
-- A HashMap that maps integer keys to doubly-linked list nodes for O(1) lookup.
+- A HashMap that maps keys to doubly-linked list nodes for O(1) lookup.
 - A doubly-linked list to track usage order (most recently used at the head, least recently used at the tail) for O(1) insert and removal.
 
-This design allows get and put operations to update usage order and evict the least-recently-used entry when capacity is exceeded.
+This design allows get and put operations to update usage order and evict the least-recently-used entry when capacity is exceeded. The implementation now supports any object types for keys and values via Java generics.
 
 ## Key classes / files
 
@@ -60,7 +60,9 @@ Public methods (exact internal sequence)
 
 - get(key):
   1. Node node = map.get(key)
-  2. If node == null -> return -1
+  2. If node == null -> return miss value
+     - New behavior: the generic `get(K)` returns the stored `V` or `null` when not found.
+     - Backwards-compatibility: the current implementation will return `Integer.valueOf(-1)` on misses when the cache is used with `Integer` values so existing tests that expect `-1` still pass.
   3. moveToHead(node) // mark as used now
   4. return node.value
 
@@ -141,8 +143,10 @@ Why this gives O(1)
 
 Small implementation quirks and suggestions
 
-- The Node class stores the key so when removing the LRU node we can remove its key from the map.
-- The class is intentionally simple: it uses primitive ints for key/value to match tests. If you generalize to generics, remember to implement equals/hashCode correctly on keys or use the existing hash behavior.
+- The Node class now stores generic `K` and `V` so the cache works with any object types for keys and values.
+- `get(K)` returns `V` (or `null`) on miss. To preserve the original tests the implementation currently returns `Integer.valueOf(-1)` on miss if the cache is used with `Integer` values; if you prefer a cleaner API, consider changing `get` to return `Optional<V>` or update callers to expect `null` on miss.
+- `toString()` is provided for debugging and prints entries from MRU to LRU.
+- The class is not thread-safe. For concurrent use, add synchronization, use concurrent data structures, or provide a thread-safe wrapper.
 
 ## Complexity
 
@@ -151,15 +155,20 @@ Small implementation quirks and suggestions
 
 (These hold because HashMap provides O(1) lookup and the linked list operations are O(1).)
 
-## Usage example
+## Usage example (generic)
 
 ```java
-LRUCache cache = new LRUCache(2);
+LRUCache<Integer, Integer> cache = new LRUCache<>(2);
 cache.put(1, 1);
 cache.put(2, 2);
 int v1 = cache.get(1); // returns 1, key 1 becomes most-recently-used
 cache.put(3, 3); // evicts key 2 because capacity is 2
-int v2 = cache.get(2); // returns -1 (not found)
+int v2 = cache.get(2); // returns -1 (compatibility behavior for Integer-valued cache)
+
+// If you use a non-Integer value type, get() returns null on miss:
+LRUCache<String, String> sCache = new LRUCache<>(2);
+sCache.put("a", "A");
+String s = sCache.get("missing"); // returns null
 ```
 
 ## Running tests
