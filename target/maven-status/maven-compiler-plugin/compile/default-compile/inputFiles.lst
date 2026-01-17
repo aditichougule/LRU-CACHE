@@ -1,1 +1,6 @@
+/Users/aditichougule/LRU-CACHE/src/main/java/com/smartload/lru/Cache.java
+/Users/aditichougule/LRU-CACHE/src/main/java/com/smartload/lru/EvictionStrategy.java
+/Users/aditichougule/LRU-CACHE/src/main/java/com/smartload/lru/FIFOEvictionStrategy.java
+/Users/aditichougule/LRU-CACHE/src/main/java/com/smartload/lru/LFUEvictionStrategy.java
 /Users/aditichougule/LRU-CACHE/src/main/java/com/smartload/lru/LRUCache.java
+/Users/aditichougule/LRU-CACHE/src/main/java/com/smartload/lru/LRUEvictionStrategy.java
