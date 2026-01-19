@@ -1,5 +1,7 @@
 com/smartload/lru/FIFOEvictionStrategy.class
+com/smartload/lru/TTLCache.class
 com/smartload/lru/FIFOEvictionStrategy$1.class
+com/smartload/lru/CacheEntry.class
 com/smartload/lru/LRUEvictionStrategy.class
 com/smartload/lru/LFUEvictionStrategy$AccessInfo.class
 com/smartload/lru/LRUCache.class
@@ -7,3 +9,4 @@ com/smartload/lru/LFUEvictionStrategy.class
 com/smartload/lru/LRUEvictionStrategy$1.class
 com/smartload/lru/Cache.class
 com/smartload/lru/EvictionStrategy.class
+com/smartload/lru/CacheDemo.class

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.smartload.lru.CacheStrategyTest" time="0.026" tests="19" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.smartload.lru.TTLCacheTest" time="2.412" tests="20" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -56,23 +56,24 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="testLRUCacheBackwardCompatibility" classname="com.smartload.lru.CacheStrategyTest" time="0.002"/>
-  <testcase name="testFIFOCapacityOne" classname="com.smartload.lru.CacheStrategyTest" time="0.0"/>
-  <testcase name="testCacheContainsKey" classname="com.smartload.lru.CacheStrategyTest" time="0.001"/>
-  <testcase name="testCacheClear" classname="com.smartload.lru.CacheStrategyTest" time="0.001"/>
-  <testcase name="testLRUCapacityOne" classname="com.smartload.lru.CacheStrategyTest" time="0.0"/>
-  <testcase name="testFIFOAccessDoesntAffectOrder" classname="com.smartload.lru.CacheStrategyTest" time="0.0"/>
-  <testcase name="testConcurrentGets" classname="com.smartload.lru.CacheStrategyTest" time="0.004"/>
-  <testcase name="testConcurrentPuts" classname="com.smartload.lru.CacheStrategyTest" time="0.004"/>
-  <testcase name="testFIFOBasicPutGet" classname="com.smartload.lru.CacheStrategyTest" time="0.0"/>
-  <testcase name="testLFUBasicPutGet" classname="com.smartload.lru.CacheStrategyTest" time="0.0"/>
-  <testcase name="testCacheRemove" classname="com.smartload.lru.CacheStrategyTest" time="0.0"/>
-  <testcase name="testCacheSize" classname="com.smartload.lru.CacheStrategyTest" time="0.0"/>
-  <testcase name="testConcurrentWithLFUStrategy" classname="com.smartload.lru.CacheStrategyTest" time="0.001"/>
-  <testcase name="testLRUBasicPutGet" classname="com.smartload.lru.CacheStrategyTest" time="0.0"/>
-  <testcase name="testLRUUpdateMovesToHead" classname="com.smartload.lru.CacheStrategyTest" time="0.001"/>
-  <testcase name="testLRUCacheUpdateMovesToHead" classname="com.smartload.lru.CacheStrategyTest" time="0.0"/>
-  <testcase name="testCacheCapacityAndStrategy" classname="com.smartload.lru.CacheStrategyTest" time="0.0"/>
-  <testcase name="testConcurrentPutsAndGets" classname="com.smartload.lru.CacheStrategyTest" time="0.002"/>
-  <testcase name="testLFUFrequencyTracking" classname="com.smartload.lru.CacheStrategyTest" time="0.0"/>
+  <testcase name="testRemoveExpiredEntry" classname="com.smartload.lru.TTLCacheTest" time="0.109"/>
+  <testcase name="testConcurrentGetsOnExpiringEntries" classname="com.smartload.lru.TTLCacheTest" time="0.003"/>
+  <testcase name="testExpiredWithLRU" classname="com.smartload.lru.TTLCacheTest" time="0.105"/>
+  <testcase name="testBackwardCompatibilityBasics" classname="com.smartload.lru.TTLCacheTest" time="0.001"/>
+  <testcase name="testClearCache" classname="com.smartload.lru.TTLCacheTest" time="0.0"/>
+  <testcase name="testLazyExpiration" classname="com.smartload.lru.TTLCacheTest" time="0.156"/>
+  <testcase name="testUpdateResetsTTL" classname="com.smartload.lru.TTLCacheTest" time="0.092"/>
+  <testcase name="testUpdateWithoutExplicitTTL" classname="com.smartload.lru.TTLCacheTest" time="0.188"/>
+  <testcase name="testGetRemainingTTL" classname="com.smartload.lru.TTLCacheTest" time="0.207"/>
+  <testcase name="testCacheStatistics" classname="com.smartload.lru.TTLCacheTest" time="0.109"/>
+  <testcase name="testEntryWithoutExpiry" classname="com.smartload.lru.TTLCacheTest" time="0.102"/>
+  <testcase name="testConcurrentPutsWithDifferentTTLs" classname="com.smartload.lru.TTLCacheTest" time="0.005"/>
+  <testcase name="testContainsKeyWithExpiry" classname="com.smartload.lru.TTLCacheTest" time="0.103"/>
+  <testcase name="testCountValidVsSize" classname="com.smartload.lru.TTLCacheTest" time="0.106"/>
+  <testcase name="testEntryExpires" classname="com.smartload.lru.TTLCacheTest" time="0.153"/>
+  <testcase name="testExpiredWithFIFO" classname="com.smartload.lru.TTLCacheTest" time="0.155"/>
+  <testcase name="testActiveCleanup" classname="com.smartload.lru.TTLCacheTest" time="0.124"/>
+  <testcase name="testRemainingTTLNonExistent" classname="com.smartload.lru.TTLCacheTest" time="0.001"/>
+  <testcase name="testMultipleDifferentTTLs" classname="com.smartload.lru.TTLCacheTest" time="0.557"/>
+  <testcase name="testVeryLongTTL" classname="com.smartload.lru.TTLCacheTest" time="0.104"/>
 </testsuite>
